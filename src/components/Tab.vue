@@ -80,7 +80,7 @@ watch(select,() => {
         :aria-selected="select === index ? 'true' : 'false'"
         class="button"
         role="tab"
-        tabindex="0"
+        :tabindex="select === index ? '0' : '-1'"
         :aria-controls="`tabpanel-${index}`"
         @click="onClick(index)"
         @keydown="onKeydown"
