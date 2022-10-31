@@ -3,6 +3,7 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import Tab from './components/Tab.vue'
 import TabUnAccessible from './components/TabUnAccessible.vue';
+
 </script>
 
 <template>
