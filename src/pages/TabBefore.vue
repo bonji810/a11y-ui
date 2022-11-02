@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import Tab from '../components/Tab.vue'
+import TabUnAccessible from '../components/TabUnAccessible.vue'
 </script>
 
 <template>
   <div>
   <div>
-    <h1>Tab</h1>
-    <Tab />
+    <TabUnAccessible />
   </div>
   </div>
 </template>

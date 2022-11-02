@@ -86,7 +86,7 @@ const onClick = (val: number) => {
         class="tabpanel"
         :class="{ 'is-open': select === index }"
       >
-      <h2 class="headings">{{ panel.text }}</h2>
+      <p class="headings">{{ panel.text }}</p>
       <ul>
           <li class="list" v-for="list in panel.lists">{{ list.text }}</li>
         </ul>

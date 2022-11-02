@@ -105,7 +105,7 @@ watch(select,() => {
 
 <template>
   <div>
-    <!-- <h1 class="title">Tab UI Example - After</h1> -->
+    <h1 class="title">Tab UI Example - After</h1>
     <div class="tab-buttons" role="tablist">
       <button
         v-for="(button, index) in buttons"
@@ -134,7 +134,7 @@ watch(select,() => {
         :aria-hidden="select !== index"
         :class="{ 'is-open': select === index }"
       >
-        <h2 class="headings">{{ panel.text }}</h2>
+        <p class="headings">{{ panel.text }}</p>
         <ul>
           <li class="list" v-for="list in panel.lists">{{ list.text }}</li>
         </ul>
