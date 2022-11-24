@@ -205,6 +205,6 @@ watch(currentNumber,() => {
   justify-content: center;
   border: 1px solid #242424;
   color: #242424;
-  background-color: azure;
+  background-color: #ffebfc;
 }
 </style>
