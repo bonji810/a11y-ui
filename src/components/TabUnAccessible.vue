@@ -66,7 +66,7 @@ const onClick = (val: number) => {
 
 <template>
   <div>
-    <h1 class="title">Tab UI Example - Before</h1>
+    <!-- <h1 class="title">Tab UI Example - Before</h1> -->
     <div class="tab-buttons" role="tablist">
       <div
         v-for="(button, index) in buttons"

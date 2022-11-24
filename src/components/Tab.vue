@@ -105,7 +105,7 @@ watch(select,() => {
 
 <template>
   <div>
-    <h1 class="title">Tab UI Example - After</h1>
+    <!-- <h1 class="title">Tab UI Example - After</h1> -->
     <div class="tab-buttons" role="tablist">
       <button
         v-for="(button, index) in buttons"
