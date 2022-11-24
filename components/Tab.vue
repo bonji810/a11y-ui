@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
-
 const select = ref(0);
 const buttons = [
   {
@@ -62,40 +60,88 @@ const panels = [
 const onClick = (val: number) => {
   select.value = val;
 };
+
+const onKeydown = (event: KeyboardEvent) => {
+  let flag = false;
+
+  switch (event.key) {
+    case "ArrowLeft":
+      select.value = select.value - 1;
+      if (select.value < 0) {
+        select.value = buttons.length - 1;
+      }
+      flag = true;
+      break;
+
+    case "ArrowRight":
+      select.value = select.value + 1;
+      if (select.value > buttons.length -1) {
+        select.value = 0;
+      }
+      flag = true;
+      break;
+
+    default:
+      break;
+  }
+
+  if (flag) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+};
+
+watch(select,() => {
+  const tab = document.getElementById(`tab-${select.value}`);
+  if (tab) {
+    tab.focus();
+  }
+});
+
 </script>
 
 <template>
   <div>
-    <!-- <h1 class="title">Tab UI Example - Before</h1> -->
+    <h1 class="title">Tab UI Example - After</h1>
     <div class="tab-buttons" role="tablist">
-      <div
+      <button
         v-for="(button, index) in buttons"
         :key="index"
         :id="`tab-${index}`"
+        :aria-selected="select === index ? 'true' : 'false'"
         class="button"
+        role="tab"
+        :tabindex="select === index ? '0' : '-1'"
+        :aria-controls="`tabpanel-${index}`"
         @click="onClick(index)"
+        @keydown="onKeydown"
         :class="{ 'is-select': select === index }"
       >
         {{ button.label }}
-    </div>
+      </button>
     </div>
     <div>
       <div
         v-for="(panel, index) in panels"
-        :id="`tabpanel-${index}`"     
+        :id="`tabpanel-${index}`"
+        :aria-labelledby="`tab-${index}`"
+        role="tabpanel"
+        tabindex="0"
         class="tabpanel"
+        :aria-hidden="select !== index"
         :class="{ 'is-open': select === index }"
       >
-      <p class="headings">{{ panel.text }}</p>
-      <ul>
+        <p class="headings">{{ panel.text }}</p>
+        <ul>
           <li class="list" v-for="list in panel.lists">{{ list.text }}</li>
         </ul>
       </div>
     </div>
+    <NuxtLink class="link" to="/before">Before</NuxtLink>
   </div>
 </template>
 
-<style>
+<style scoped>
 .tab-buttons {
   display: flex;
 }
@@ -123,6 +169,7 @@ const onClick = (val: number) => {
   height: 200px;
   margin-top: -1px;
   border: 1px solid #000;
+  padding: 20px;
 }
 
 .headings {
@@ -151,5 +198,17 @@ const onClick = (val: number) => {
 }
 .is-open {
   display: block;
+}
+
+.link {
+  width: 130px;
+  height: 48px;
+  margin: 40px auto 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #242424;
+  color: #242424;
+  background-color: azure;
 }
 </style>
