@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const select = ref(0);
+const currentNumber = ref(0);
 const tabButtons = [
   {
     label: "果物",
@@ -57,45 +57,41 @@ const tabPanels = [
   },
 ];
 
-const onClick = (val: number) => {
-  select.value = val;
+const tabButtonRefs = ref<HTMLButtonElement[]>([]);
+
+const setTabButtonRef = (el: any) => {
+  if (el) {
+    tabButtonRefs.value.push(el)
+  }
+}
+
+const onClick = (index: number) => {
+  currentNumber.value = index;
 };
 
 const onKeydown = (event: KeyboardEvent) => {
-  let flag = false;
-
   switch (event.key) {
     case "ArrowLeft":
-      select.value = select.value - 1;
-      if (select.value < 0) {
-        select.value = tabButtons.length - 1;
+      currentNumber.value = currentNumber.value - 1;
+      if (currentNumber.value < 0) {
+        currentNumber.value = tabButtons.length - 1;
       }
-      flag = true;
       break;
 
     case "ArrowRight":
-      select.value = select.value + 1;
-      if (select.value > tabButtons.length -1) {
-        select.value = 0;
+      currentNumber.value = currentNumber.value + 1;
+      if (currentNumber.value > tabButtons.length -1) {
+        currentNumber.value = 0;
       }
-      flag = true;
       break;
 
     default:
       break;
   }
-
-  if (flag) {
-    event.stopPropagation();
-    event.preventDefault();
-  }
 };
 
-watch(select,() => {
-  const tab = document.getElementById(`tab-${select.value}`);
-  if (tab) {
-    tab.focus();
-  }
+watch(currentNumber,() => {
+  tabButtonRefs.value[currentNumber.value].focus();
 });
 
 </script>
@@ -108,14 +104,15 @@ watch(select,() => {
         v-for="(button, index) in tabButtons"
         :key="index"
         :id="`tab-${index}`"
-        :aria-selected="select === index ? 'true' : 'false'"
+        :aria-selected="currentNumber === index ? 'true' : 'false'"
         class="button"
         role="tab"
-        :tabindex="select === index ? '0' : '-1'"
+        :tabindex="currentNumber === index ? '0' : '-1'"
         :aria-controls="`tabpanel-${index}`"
         @click="onClick(index)"
         @keydown="onKeydown"
-        :class="{ 'is-select': select === index }"
+        :class="{ 'is-select': currentNumber === index }"
+        :ref="setTabButtonRef"
       >
         {{ button.label }}
       </button>
@@ -128,8 +125,8 @@ watch(select,() => {
         role="tabpanel"
         tabindex="0"
         class="tabpanel"
-        :aria-hidden="select !== index"
-        :class="{ 'is-open': select === index }"
+        :aria-hidden="currentNumber !== index"
+        :class="{ 'is-open': currentNumber === index }"
       >
         <p class="headings">{{ panel.title }}</p>
         <ul>

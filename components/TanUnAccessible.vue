@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const select = ref(0);
+const currentNumber = ref(0);
 const tabButtons = [
   {
     label: "果物",
@@ -57,14 +57,14 @@ const tabPanels = [
   },
 ];
 
-const onClick = (val: number) => {
-  select.value = val;
+const onClick = (index: number) => {
+  currentNumber.value = index;
 };
 </script>
 
 <template>
   <div>
-    <!-- <h1 class="title">Tab UI Example - Before</h1> -->
+    <h1 class="title">Tab UI Example - Before</h1>
     <div class="tablist" role="tablist">
       <div
         v-for="(button, index) in tabButtons"
@@ -72,7 +72,7 @@ const onClick = (val: number) => {
         :id="`tab-${index}`"
         class="button"
         @click="onClick(index)"
-        :class="{ 'is-select': select === index }"
+        :class="{ 'is-select': currentNumber === index }"
       >
         {{ button.label }}
     </div>
@@ -82,7 +82,7 @@ const onClick = (val: number) => {
         v-for="(panel, index) in tabPanels"
         :id="`tabpanel-${index}`"     
         class="tabpanel"
-        :class="{ 'is-open': select === index }"
+        :class="{ 'is-open': currentNumber === index }"
       >
       <p class="headings">{{ panel.title }}</p>
       <ul>
@@ -90,7 +90,7 @@ const onClick = (val: number) => {
         </ul>
       </div>
     </div>
-    <!-- <NuxtLink class="link" to="/after">After</NuxtLink> -->
+    <NuxtLink class="link" to="/after">After</NuxtLink>
   </div>
 </template>
 
