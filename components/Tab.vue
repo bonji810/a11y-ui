@@ -1,57 +1,57 @@
 <script setup lang="ts">
 const select = ref(0);
-const buttons = [
+const tabButtons = [
   {
-    label: "Tab1",
+    label: "果物",
   },
   {
-    label: "Tab2",
+    label: "野菜",
   },
   {
-    label: "Tab3",
+    label: "飲み物",
   },
 ];
 
-const panels = [
+const tabPanels = [
   {
-    text: "Tabpanel1",
+    title: "果物",
     lists: [
       {
-        text: "Tabpanel1-list1",
+        text: "みかん",
       },
       {
-        text: "Tabpanel1-list2",
+        text: "りんご",
       },
       {
-        text: "Tabpanel1-list3",
+        text: "ぶどう",
       },
     ]
   },
   {
-    text: "Tabpanel2",
+    title: "野菜",
     lists: [
       {
-        text: "Tabpanel2-list1",
+        text: "たまねぎ",
       },
       {
-        text: "Tabpanel2-list2",
+        text: "にんじん",
       },
       {
-        text: "Tabpanel2-list3",
+        text: "じゃがいも",
       },
     ]
   },
   {
-    text: "Tabpanel3",
+    title: "飲み物",
     lists: [
       {
-        text: "Tabpanel3-list1",
+        text: "コーヒー",
       },
       {
-        text: "Tabpanel3-list2",
+        text: "紅茶",
       },
       {
-        text: "Tabpanel3-list3",
+        text: "オレンジジュース",
       },
     ]
   },
@@ -68,14 +68,14 @@ const onKeydown = (event: KeyboardEvent) => {
     case "ArrowLeft":
       select.value = select.value - 1;
       if (select.value < 0) {
-        select.value = buttons.length - 1;
+        select.value = tabButtons.length - 1;
       }
       flag = true;
       break;
 
     case "ArrowRight":
       select.value = select.value + 1;
-      if (select.value > buttons.length -1) {
+      if (select.value > tabButtons.length -1) {
         select.value = 0;
       }
       flag = true;
@@ -103,9 +103,9 @@ watch(select,() => {
 <template>
   <div>
     <h1 class="title">Tab UI Example - After</h1>
-    <div class="tab-buttons" role="tablist">
+    <div class="tablist" role="tablist">
       <button
-        v-for="(button, index) in buttons"
+        v-for="(button, index) in tabButtons"
         :key="index"
         :id="`tab-${index}`"
         :aria-selected="select === index ? 'true' : 'false'"
@@ -122,7 +122,7 @@ watch(select,() => {
     </div>
     <div>
       <div
-        v-for="(panel, index) in panels"
+        v-for="(panel, index) in tabPanels"
         :id="`tabpanel-${index}`"
         :aria-labelledby="`tab-${index}`"
         role="tabpanel"
@@ -131,7 +131,7 @@ watch(select,() => {
         :aria-hidden="select !== index"
         :class="{ 'is-open': select === index }"
       >
-        <p class="headings">{{ panel.text }}</p>
+        <p class="headings">{{ panel.title }}</p>
         <ul>
           <li class="list" v-for="list in panel.lists">{{ list.text }}</li>
         </ul>
@@ -142,7 +142,7 @@ watch(select,() => {
 </template>
 
 <style scoped>
-.tab-buttons {
+.tablist {
   display: flex;
 }
 
@@ -157,7 +157,7 @@ watch(select,() => {
   font-weight: bold;
 }
 .button:hover {
-  background-color: azure;
+  background-color: #ffebfc;
 }
 .button:first-of-type {
   margin-left: 0;
@@ -188,13 +188,11 @@ watch(select,() => {
 }
 
 .is-select {
-  color: #fff;
-  background-color: cadetblue;
+  background-color: #fbd2f4;
 }
 
 .button.is-select:hover {
-  background-color: cadetblue;
-  opacity: 0.7;
+  background-color: #fbd2f4;
 }
 .is-open {
   display: block;
@@ -204,6 +202,7 @@ watch(select,() => {
   width: 130px;
   height: 48px;
   margin: 40px auto 0 auto;
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;

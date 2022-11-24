@@ -1,6 +1,7 @@
-# Nuxt 3 Minimal Starter
+# Tab UI Example
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+以下のnote記事のsampleコードのレポジトリです
+
 
 ## Setup
 
@@ -38,5 +39,3 @@ Locally preview production build:
 ```bash
 npm run preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
