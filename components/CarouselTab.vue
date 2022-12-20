@@ -8,44 +8,44 @@ const carouselItems = [
   {
     title: "キウイ",
     src: "image_2.jpg",
-    alt: "キウイの画像"
+    alt: "キウイの画像",
   },
   {
     title: "オレンジ",
     src: "image_3.jpg",
-    alt:"オレンジの画像"
+    alt: "オレンジの画像",
   },
   {
     title: "いちご",
     src: "image_4.jpg",
-    alt:"いちごの画像"
+    alt: "いちごの画像",
   },
   {
     title: "りんご",
     src: "image_5.jpg",
-    alt:"りんごの画像"
+    alt: "りんごの画像",
   },
   {
     title: "レモン",
     src: "image_6.jpg",
-    alt:"レモンの画像"
-  }
-]
-const currentNumber = ref(0)
+    alt: "レモンの画像",
+  },
+];
+const currentNumber = ref(0);
 const tabButtonRefs = ref<HTMLButtonElement[]>([]);
 
 const setTabButtonRef = (el: any) => {
   if (el) {
-    tabButtonRefs.value.push(el)
+    tabButtonRefs.value.push(el);
   }
-}
+};
 const generateImgPath = (fileName: string): string => {
-  return new URL(`../assets/images/${fileName}`, import.meta.url).href
-}
+  return new URL(`../assets/images/${fileName}`, import.meta.url).href;
+};
 
 const clickTab = (index: number) => {
-  currentNumber.value = index
-}
+  currentNumber.value = index;
+};
 
 const onKeydown = (event: KeyboardEvent) => {
   switch (event.key) {
@@ -58,7 +58,7 @@ const onKeydown = (event: KeyboardEvent) => {
 
     case "ArrowRight":
       currentNumber.value = currentNumber.value + 1;
-      if (currentNumber.value > carouselItems.length -1) {
+      if (currentNumber.value > carouselItems.length - 1) {
         currentNumber.value = 0;
       }
       break;
@@ -69,10 +69,10 @@ const onKeydown = (event: KeyboardEvent) => {
 };
 
 const translate = computed(() => {
-  return `transform: translateX(${-800 * currentNumber.value}px)`
-})
+  return `transform: translateX(${-800 * currentNumber.value}px)`;
+});
 
-watch(currentNumber,() => {
+watch(currentNumber, () => {
   tabButtonRefs.value[currentNumber.value].focus();
 });
 </script>
@@ -84,12 +84,13 @@ watch(currentNumber,() => {
         <div class="controls">
           <button
             class="button"
-            :class="{'active': currentNumber === index}"
-            :ref="setTabButtonRef" @keydown="onKeydown"
-            v-for="(_,index) in carouselItems"
+            :class="{ active: currentNumber === index }"
+            :ref="setTabButtonRef"
+            @keydown="onKeydown"
+            v-for="(_, index) in carouselItems"
             @click="clickTab(index)"
-            :tabindex="currentNumber === index ? 0 : -1">
-          </button>
+            :tabindex="currentNumber === index ? 0 : -1"
+          ></button>
         </div>
         <div
           v-for="(item, index) in carouselItems"
@@ -102,7 +103,7 @@ watch(currentNumber,() => {
           :tabindex="currentNumber === index ? 0 : -1"
         >
           <div class="image" :class="`image-${index}`">
-            <img :src="generateImgPath(item.src)" :alt="item.alt">
+            <img :src="generateImgPath(item.src)" :alt="item.alt" />
             <p class="title">{{ item.title }}</p>
           </div>
         </div>
@@ -112,7 +113,6 @@ watch(currentNumber,() => {
 </template>
 
 <style scoped>
-
 .carousel {
   position: relative;
   overflow-x: hidden;

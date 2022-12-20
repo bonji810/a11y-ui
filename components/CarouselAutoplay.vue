@@ -8,60 +8,60 @@ const carouselItems = [
   {
     title: "キウイ",
     src: "image_2.jpg",
-    alt: "キウイの画像"
+    alt: "キウイの画像",
   },
   {
     title: "オレンジ",
     src: "image_3.jpg",
-    alt:"オレンジの画像"
+    alt: "オレンジの画像",
   },
   {
     title: "いちご",
     src: "image_4.jpg",
-    alt:"いちごの画像"
+    alt: "いちごの画像",
   },
   {
     title: "りんご",
     src: "image_5.jpg",
-    alt:"りんごの画像"
+    alt: "りんごの画像",
   },
   {
     title: "レモン",
     src: "image_6.jpg",
-    alt:"レモンの画像"
-  }
-]
-const currentNumber = ref(0)
+    alt: "レモンの画像",
+  },
+];
+const currentNumber = ref(0);
 const generateImgPath = (fileName: string): string => {
-  return new URL(`../assets/images/${fileName}`, import.meta.url).href
-}
+  return new URL(`../assets/images/${fileName}`, import.meta.url).href;
+};
 
-const isAutoplay = ref(true)
-const isAutoplayButton = ref(true)
+const isAutoplay = ref(true);
+const isAutoplayButton = ref(true);
 
 const next = () => {
-  currentNumber.value = currentNumber.value + 1
+  currentNumber.value = currentNumber.value + 1;
   if (currentNumber.value > carouselItems.length - 1) {
-    currentNumber.value = 0
+    currentNumber.value = 0;
   }
-}
+};
 
 const prev = () => {
-  currentNumber.value = currentNumber.value - 1
+  currentNumber.value = currentNumber.value - 1;
   if (currentNumber.value < 0) {
-    currentNumber.value = carouselItems.length - 1
+    currentNumber.value = carouselItems.length - 1;
   }
-}
+};
 
 const translate = computed(() => {
-  return `transform: translateX(${-800 * currentNumber.value}px)`
-})
+  return `transform: translateX(${-800 * currentNumber.value}px)`;
+});
 
 setInterval(() => {
-  if(isAutoplay.value && isAutoplayButton.value) {
-    next()
+  if (isAutoplay.value && isAutoplayButton.value) {
+    next();
   }
-}, 4000)
+}, 4000);
 </script>
 
 <template>
@@ -69,12 +69,37 @@ setInterval(() => {
     <div class="carousel" aria-roledescription="carousel" aria-label="果物一覧">
       <div class="carousel-items" aria-live="polite">
         <div class="controls">
-          <button class="button stop" @click="(isAutoplayButton = !isAutoplayButton)" @focus="(isAutoplay = false)" @blur="(isAutoplay = true)">
-            <span v-if="isAutoplayButton">||</span>
-            <span v-else>></span>
+          <button
+            class="button stop"
+            @click="isAutoplayButton = !isAutoplayButton"
+            @focus="isAutoplay = false"
+            @blur="isAutoplay = true"
+          >
+            <img
+              v-if="isAutoplayButton"
+              aria-hidden
+              src="@/assets/images/icons/stop.svg"
+            />
+            <img v-else aria-hidden src="@/assets/images/icons/play.svg" />
           </button>
-          <button class="button prev" @click="prev" @focus="(isAutoplay = false)" @blur="(isAutoplay = true)" aria-label="Prev Slide">Prev</button>
-          <button class="button next" @click="next" @focus="(isAutoplay = false)" @blur="(isAutoplay = true)" aria-label="Next Slide">Next</button>
+          <button
+            class="button prev"
+            @click="prev"
+            @focus="isAutoplay = false"
+            @blur="isAutoplay = true"
+            aria-label="Prev Slide"
+          >
+            <img aria-hidden src="@/assets/images/icons/arrow.svg" />
+          </button>
+          <button
+            class="button next"
+            @click="next"
+            @focus="isAutoplay = false"
+            @blur="isAutoplay = true"
+            aria-label="Next Slide"
+          >
+            <img aria-hidden src="@/assets/images/icons/arrow.svg" />
+          </button>
         </div>
         <div
           v-for="(item, index) in carouselItems"
@@ -89,7 +114,7 @@ setInterval(() => {
           @mouseleave="isAutoplay = true"
         >
           <div class="image" :class="`image-${index}`">
-            <img :src="generateImgPath(item.src)" :alt="item.alt">
+            <img :src="generateImgPath(item.src)" :alt="item.alt" />
             <p class="title">{{ item.title }}</p>
           </div>
         </div>
@@ -99,7 +124,6 @@ setInterval(() => {
 </template>
 
 <style scoped>
-
 .carousel {
   position: relative;
   overflow: hidden;
@@ -120,6 +144,9 @@ setInterval(() => {
   border: 1px solid #000;
   z-index: 1;
   background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .button.stop {
@@ -138,6 +165,10 @@ setInterval(() => {
 
 .prev {
   left: 10px;
+}
+
+.prev img {
+  transform: rotate(180deg);
 }
 .title {
   min-width: 80px;
