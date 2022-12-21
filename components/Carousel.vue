@@ -32,6 +32,7 @@ const carouselItems = [
   },
 ];
 const currentNumber = ref(0);
+const ariaBusy = ref(false);
 const generateImgPath = (fileName: string): string => {
   return new URL(`../assets/images/${fileName}`, import.meta.url).href;
 };
@@ -41,6 +42,10 @@ const next = () => {
   if (currentNumber.value > carouselItems.length - 1) {
     currentNumber.value = 0;
   }
+  ariaBusy.value = true;
+  setTimeout(() => {
+    ariaBusy.value = false;
+  }, 500);
 };
 
 const prev = () => {
@@ -48,18 +53,21 @@ const prev = () => {
   if (currentNumber.value < 0) {
     currentNumber.value = carouselItems.length - 1;
   }
+  ariaBusy.value = true;
+  setTimeout(() => {
+    ariaBusy.value = false;
+  }, 500);
 };
 
 const translate = computed(() => {
   return `transform: translateX(${-800 * currentNumber.value}px)`;
 });
-
 </script>
 
 <template>
   <div>
     <div class="carousel" aria-roledescription="carousel" aria-label="果物一覧">
-      <div class="carousel-items" aria-live="polite">
+      <div class="carousel-items" aria-live="polite" :aria-busy="ariaBusy">
         <div class="controls">
           <button class="button prev" @click="prev" aria-label="Prev Slide">
             <img aria-hidden src="@/assets/images/icons/arrow.svg" />
@@ -84,6 +92,9 @@ const translate = computed(() => {
           </div>
         </div>
       </div>
+      <p class="label" aria-live="polite">
+        {{ carouselItems[currentNumber].title }}
+      </p>
     </div>
   </div>
 </template>
@@ -158,5 +169,17 @@ const translate = computed(() => {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 </style>
