@@ -77,10 +77,10 @@ setInterval(() => {
           >
             <img
               v-if="isAutoplayButton"
-              aria-hidden
+              aria-hidden="true"
               src="@/assets/images/icons/stop.svg"
             />
-            <img v-else aria-hidden src="@/assets/images/icons/play.svg" />
+            <img v-else aria-hidden="true" src="@/assets/images/icons/play.svg" />
           </button>
           <button
             class="button prev"
@@ -89,7 +89,7 @@ setInterval(() => {
             @blur="isAutoplay = true"
             aria-label="Prev Slide"
           >
-            <img aria-hidden src="@/assets/images/icons/arrow.svg" />
+            <img aria-hidden="true" src="@/assets/images/icons/arrow.svg" />
           </button>
           <button
             class="button next"
@@ -98,7 +98,7 @@ setInterval(() => {
             @blur="isAutoplay = true"
             aria-label="Next Slide"
           >
-            <img aria-hidden src="@/assets/images/icons/arrow.svg" />
+            <img aria-hidden="true" src="@/assets/images/icons/arrow.svg" />
           </button>
         </div>
         <div
