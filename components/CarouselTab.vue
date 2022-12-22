@@ -81,7 +81,7 @@ watch(currentNumber, () => {
   <div>
     <div class="carousel" aria-roledescription="carousel" aria-label="果物一覧">
       <div class="carousel-items" aria-live="polite">
-        <div class="controls">
+        <div class="controls" role="tablist">
           <button
             class="button"
             :class="{ active: currentNumber === index }"
@@ -90,6 +90,7 @@ watch(currentNumber, () => {
             v-for="(_, index) in carouselItems"
             @click="clickTab(index)"
             :tabindex="currentNumber === index ? 0 : -1"
+            role="tab"
           ></button>
         </div>
         <div
