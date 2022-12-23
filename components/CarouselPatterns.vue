@@ -1,9 +1,9 @@
 <template>
   <div class="box">
     <nuxt-link class="link" to="/carousel-before">Before</nuxt-link>
-    <nuxt-link class="link" to="/carousel">Normal</nuxt-link>
-    <nuxt-link class="link" to="/carousel-autoplay">Autoplay</nuxt-link>
-    <nuxt-link class="link" to="/carousel-tab">Tab</nuxt-link>
+    <nuxt-link class="link" to="/carousel">After</nuxt-link>
+    <nuxt-link class="link" to="/carousel-autoplay">自動再生機能</nuxt-link>
+    <nuxt-link class="link" to="/carousel-tab">スライドコントロールタブ</nuxt-link>
   </div>
 </template>
 
