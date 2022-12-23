@@ -79,7 +79,7 @@ watch(currentNumber, () => {
 
 <template>
   <div>
-    <div class="carousel" aria-roledescription="carousel" aria-label="果物一覧">
+    <section class="carousel" aria-roledescription="carousel" aria-label="果物一覧">
       <div class="carousel-items" aria-live="polite">
         <div class="controls" role="tablist">
           <button
@@ -109,7 +109,10 @@ watch(currentNumber, () => {
           </div>
         </div>
       </div>
-    </div>
+      <p class="label" aria-live="polite">
+        {{ carouselItems[currentNumber].title }}
+      </p>
+    </section>
   </div>
 </template>
 
@@ -193,5 +196,16 @@ watch(currentNumber, () => {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 </style>

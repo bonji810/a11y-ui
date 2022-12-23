@@ -66,7 +66,7 @@ const translate = computed(() => {
 
 <template>
   <div>
-    <div class="carousel" aria-roledescription="carousel" aria-label="果物一覧">
+    <section class="carousel" aria-roledescription="carousel" aria-label="果物一覧">
       <div class="carousel-items" aria-live="polite" :aria-busy="ariaBusy">
         <div class="controls">
           <button class="button prev" @click="prev" aria-label="Prev Slide">
@@ -95,7 +95,7 @@ const translate = computed(() => {
       <p class="label" aria-live="polite">
         {{ carouselItems[currentNumber].title }}
       </p>
-    </div>
+    </section>
   </div>
 </template>
 
