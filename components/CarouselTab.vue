@@ -83,18 +83,23 @@ watch(currentNumber, () => {
       <div class="carousel-items" aria-live="polite">
         <div class="controls" role="tablist">
           <button
+            :id="`tab-${index}`"
             class="button"
             :class="{ active: currentNumber === index }"
+            :aria-selected="currentNumber === index"
             :ref="setTabButtonRef"
             @keydown="onKeydown"
             v-for="(_, index) in carouselItems"
             @click="clickTab(index)"
             :tabindex="currentNumber === index ? 0 : -1"
             role="tab"
+            aria-label="tab button"
+            :aria-controls="`slide-${index}`"
           ></button>
         </div>
         <div
           v-for="(item, index) in carouselItems"
+          :id="`slide-${index}`"
           class="carousel-item"
           :style="translate"
           role="group"
@@ -102,6 +107,7 @@ watch(currentNumber, () => {
           aria-roledescription="slide"
           :aria-hidden="currentNumber !== index"
           :tabindex="currentNumber === index ? 0 : -1"
+          :aria-labelledby="`tab-${index}`"
         >
           <div class="image" :class="`image-${index}`">
             <img :src="generateImgPath(item.src)" :alt="item.alt" />
